@@ -11,4 +11,4 @@ patches:
 
 images:
   - name: matteotv/argocd-demo
-    newTag: dev-unset
+    newTag: dev-20260724-5

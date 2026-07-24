@@ -11,6 +11,6 @@ spec:
             - name: ENVIRONMENT
               value: "DEV"
             - name: VERSION
-              value: "dev-unset"
+              value: "dev-20260724-5"
             - name: BG_COLOR
               value: "#DB9E9E"
