@@ -66,3 +66,4 @@ jobs:
           git add "manifests/overlays/${ENV_NAME}"
           git commit -m "chore(${ENV_NAME}): deploy image ${NEW_TAG}" || { echo "No changes to commit"; exit 0; }
           git push origin HEAD:${{ github.ref_name }}
+          
