@@ -2,9 +2,7 @@ name: CI-CD
 
 on:
   push:
-    branches: 
-      - feature/*
-      - master
+    branches: [master,feature ]
     paths:
       - "app/**"
       - "Dockerfile"
