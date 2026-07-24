@@ -13,4 +13,4 @@ spec:
             - name: VERSION
               value: "dev-20260724-5"
             - name: BG_COLOR
-              value: "#DB9E9E"
+              value: "#F54927"
