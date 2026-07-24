@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: https://github.com/MatteoTaghvaei/argocd-demo.git
-    targetRevision: feature
+    targetRevision: master
     path: manifests/overlays/dev
 
   destination:
