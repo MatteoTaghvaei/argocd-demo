@@ -11,6 +11,6 @@ spec:
             - name: ENVIRONMENT
               value: "PROD"
             - name: VERSION
-              value: "prod-unset"
+              value: "prod-7e10a85"
             - name: BG_COLOR
               value: "#16a34a"
