@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-argocd
+spec:
+  template:
+    spec:
+      containers:
+        - name: demo-argocd
+          env:
+            - name: ENVIRONMENT
+              value: "DEV"
+            - name: VERSION
+              value: "dev-unset"
+            - name: BG_COLOR
+              value: "#2563eb"
