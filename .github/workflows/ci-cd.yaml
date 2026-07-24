@@ -15,7 +15,6 @@ permissions:
 
 env:
   REPOSITORY: matteotv/argocd-demo
-  # ENV: {{ github.ref_name == 'master' && 'prod' || 'dev' }}
 
 jobs:
   build-and-deploy:
@@ -24,15 +23,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Resolve environment name and tag
-        id: vars
+      - name: Set global environment variables
         run: |
-          if [ "${{ github.ref_name }}" = "master" ]; then
-            echo "env_name=prod" >> "$GITHUB_OUTPUT"
-          else
-            echo "env_name=dev" >> "$GITHUB_OUTPUT"
-          fi
-          echo "short_sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+          ENV_NAME="${{ github.ref_name == 'master' && 'prod' || 'dev' }}"
+          SHORT_SHA="$(git rev-parse --short HEAD)"
+          NEW_TAG="${ENV_NAME}-${SHORT_SHA}"
+
+          echo "ENV_NAME=${ENV_NAME}" >> $GITHUB_ENV
+          echo "NEW_TAG=${NEW_TAG}" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -48,12 +46,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.REPOSITORY }}:${{ steps.vars.outputs.env_name }}-${{ steps.vars.outputs.short_sha }}
+          
+          tags: ${{ env.REPOSITORY }}:${{ env.NEW_TAG }}
 
       - name: Update image tag in overlay manifests
-        env:
-          ENV_NAME: ${{ steps.vars.outputs.env_name }}
-          NEW_TAG: ${{ steps.vars.outputs.env_name }}-${{ steps.vars.outputs.short_sha }}
         run: |
           set -e
           KUSTOM_FILE="manifests/overlays/${ENV_NAME}/kustomization.yaml"
@@ -65,9 +61,6 @@ jobs:
           echo "Updated $KUSTOM_FILE and $PATCH_FILE to ${NEW_TAG}"
 
       - name: Commit and push manifest update
-        env:
-          ENV_NAME: ${{ steps.vars.outputs.env_name }}
-          NEW_TAG: ${{ steps.vars.outputs.env_name }}-${{ steps.vars.outputs.short_sha }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
