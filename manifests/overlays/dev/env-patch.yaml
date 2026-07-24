@@ -13,4 +13,4 @@ spec:
             - name: VERSION
               value: "dev-unset"
             - name: BG_COLOR
-              value: "#2563eb"
+              value: "#DB9E9E"
