@@ -12,4 +12,4 @@ patches:
 
 images:
   - name: matteotv/argocd-demo
-    newTag: prod-20260724-3
+    newTag: prod-20260724-4

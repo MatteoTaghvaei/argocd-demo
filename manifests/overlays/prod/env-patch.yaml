@@ -11,6 +11,6 @@ spec:
             - name: ENVIRONMENT
               value: "PROD"
             - name: VERSION
-              value: "prod-20260724-3"
+              value: "prod-20260724-4"
             - name: BG_COLOR
               value: "#16a34a"
